@@ -1,12 +1,42 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Header from "@/components/Header";
+import SingleCallCard from "@/components/SingleCallCard";
+import SwarmCommandCenter from "@/components/SwarmCommandCenter";
+import LiveSwarmFeed from "@/components/LiveSwarmFeed";
+import type { StartSwarmResponse, SwarmedProvider } from "@/lib/api";
 
 const Index = () => {
+  const [isScoring, setIsScoring] = useState(false);
+  const [swarmedProviders, setSwarmedProviders] = useState<SwarmedProvider[] | null>(null);
+
+  const handleSwarmStarted = () => {
+    setIsScoring(true);
+    setSwarmedProviders(null);
+  };
+
+  const handleSwarmDeployed = (data: StartSwarmResponse) => {
+    setIsScoring(false);
+    setSwarmedProviders(data.swarmed_providers);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="px-8 pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
+          {/* Left column */}
+          <div className="space-y-6">
+            <SingleCallCard />
+            <SwarmCommandCenter
+              onSwarmStarted={handleSwarmStarted}
+              onSwarmDeployed={handleSwarmDeployed}
+            />
+          </div>
+
+          {/* Right column */}
+          <LiveSwarmFeed isScoring={isScoring} swarmedProviders={swarmedProviders} />
+        </div>
+      </main>
     </div>
   );
 };
