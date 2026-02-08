@@ -1,0 +1,15 @@
+export interface Provider {
+  id: string;
+  name: string;
+  phone: string;
+  distance_miles: number;
+  rating: number;
+}
+
+export const providers: Provider[] = [
+  { id: "p1", name: "Downtown Dental", phone: "+15551234567", distance_miles: 1.2, rating: 4.8 },
+  { id: "p2", name: "Smile Clinic", phone: "+15551234567", distance_miles: 5.8, rating: 4.2 },
+  { id: "p3", name: "Bright Smiles", phone: "+15551234567", distance_miles: 8.1, rating: 4.9 },
+  { id: "p4", name: "Zenith Dental", phone: "+15551234567", distance_miles: 2.5, rating: 3.9 },
+  { id: "p5", name: "Elite Care", phone: "+15551234567", distance_miles: 0.5, rating: 4.6 },
+];
